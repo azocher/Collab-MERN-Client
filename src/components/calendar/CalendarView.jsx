@@ -21,26 +21,16 @@ export default function CalendarView(props) {
 
     useEffect(() => {
         setStatus("loading");
-        const getEvents = async () => {
-          //AXIOS .GET ROUTE
-          try {
-            const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api-v1/calendar/allevents`)
-            console.log("👹 👹", response.data)
-            setMonthEvents(response.data.allEvents)
-            // if(response.data.length > 1) {
-            //   console.log(response.data.length)
-            // }
-            console.log("👾👾 ", MonthEvents)
-          } catch(error) { console.log("ERROR YA LIL SHIT 💩", error)}
-        }
-        getEvents()
-        fetch(`/events/month/${currentMonth}`)
-          .then((res) => res.json())
-          .then((res) => {
-            setMonthEvents(res.data);
-            setStatus("idle")
-         }).catch((error) => console.log("💥error!", error));
-      }, [currentMonth]);
+        await axios.get(`${process.env.REACT_APP_SERVER_URL}/api-v1/calendar/allevents`)
+        .then((res) => {
+            let ansArray = res.data.allEvents
+            setMonthEvents(ansArray)
+        })
+        .catch(err => console.log(err))
+        console.log("🤠", monthsEvents)
+    }, [currentMonth])
+        
+ 
     
     
       const getEventsAfterCreate = async () => {
