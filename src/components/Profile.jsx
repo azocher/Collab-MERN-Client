@@ -6,7 +6,7 @@ import Login from './Login'
 //import CalendarView from './calendar/CalendarView'
 import Weather from './Weather'
 import styled from 'styled-components'
-import { RightArrow } from '@styled-icons/boxicons-regular/RightArrow'
+//import { RightArrow } from '@styled-icons/boxicons-regular/RightArrow'
 import { Calendar } from '@styled-icons/boxicons-regular/Calendar'
 import Itinerary from './calendar/Itinerary'
 
@@ -43,7 +43,6 @@ margin: 0 auto;
 export default function Profile(props) {
     //state is information from the server
     const [message, setMessage] = useState('')
-
     //hit the auth locked route on the backend
     useEffect(() => {
         const getPrivateMessage = async () => {
@@ -64,7 +63,6 @@ export default function Profile(props) {
                 console.log(error)
                 //log the user out if an error occurs
                 props.handleLogout()
-                
             }
         }
         getPrivateMessage()

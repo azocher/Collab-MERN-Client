@@ -61,16 +61,12 @@ export default function Register(props) {
             const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api-v1/users/register`, requestBody)
             //take the token out of the response
             const { token } = response.data
-
             //set token in local storage
             localStorage.setItem('jwtToken', token)
-
             //decode the token
             const decoded = jwt.decode(token)
-
             //set the user in the app.js state
             props.setCurrentUser(decoded)
-
         }catch(error) {
             //set message if the error is a 400
             if(error.response.status === 400){
@@ -93,21 +89,22 @@ export default function Register(props) {
           <Typography component="h1" variant="h5">
             Enter Your Information Below to Sign Up!
           </Typography>
-          <form className={classes.form} noValidate onSubmit={handleSubmit} >
+          <form className={classes.form} onSubmit={handleSubmit} >
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  autoComplete="fname"
                   name="firstName"
                   variant="outlined"
-                  required
-                  fullWidth
+                  // required
+                  // fullWidth
                   id="firstName"
                   label="First Name"
-                  autoFocus
+                  //autoFocus
+                  onChange={e => setName(e.target.value)}
+                  value={name}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              {/* <Grid item xs={12} sm={6}>
                 <TextField
                   variant="outlined"
                   required
@@ -119,7 +116,7 @@ export default function Register(props) {
                   name="lastName"
                   autoComplete="lname"
                 />
-              </Grid>
+              </Grid> */}
               <Grid item xs={12}>
                 <TextField 
                     id='email-input' 
@@ -127,12 +124,12 @@ export default function Register(props) {
                     placeholder="user@domain.com"
                     onChange={e => setEmail(e.target.value)}
                     value={email}
-                    variant="outlined"
+                    //variant="outlined"
                     required
-                    fullWidth
-                    label="Email Address"
-                    name="email"
-                    autoComplete="email"
+                    //fullWidth
+                    //label="Email Address"
+                    //name="email"
+                    //autoComplete="email"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -142,13 +139,13 @@ export default function Register(props) {
                   placeholder='password'
                   onChange={e => setPassword(e.target.value)}
                   value={password}
-                  variant="outlined"
+                  //variant="outlined"
                   required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  autoComplete="current-password"
+                  //fullWidth
+                  //name="password"
+                  //label="Password"
+                  //type="password"
+                  //autoComplete="current-password"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -160,8 +157,8 @@ export default function Register(props) {
             </Grid>
             <Button
               type="submit"
-              fullWidth
-              variant="contained"
+              //fullWidth
+              //variant="contained"
               color="primary"
               className={classes.submit}
             >
