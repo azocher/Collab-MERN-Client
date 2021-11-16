@@ -27,7 +27,7 @@ const INITIAL_EVENT = {
 
 
 export default function EventForm({currentUser, closeDialog, refreshEvents }) {
-  console.log(currentUser, '🧯, 30')
+  //console.log(currentUser, '🧯, 30')
     const [form, setForm] = useState(INITIAL_EVENT);
     const [buttonDisabled, setButtonDisabled] = useState(true);
     const [status, setStatus] = useState("idle");
@@ -61,13 +61,10 @@ export default function EventForm({currentUser, closeDialog, refreshEvents }) {
       const CreateEvent = async (event) => {
         try {
           event.preventDefault();
-          
-
           setStatus("loading");
           //console.log(JSON.stringify(form, null, 2))
           const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api-v1/calendar/createevent`, form)
-
-          console.log(response)
+          console.log("💰", response)
           refreshEvents()
           setStatus("created!")
           setButtonDisabled(true)

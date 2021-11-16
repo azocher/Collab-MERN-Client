@@ -18,9 +18,9 @@ const fade = keyframes`
     }
 `
 
-const titleHolder = styled.title`
-    text-align: center;
-    `
+// const titleHolder = styled.title`
+//     text-align: center;
+//     `
     
 const Header = styled.h1`
     color: black;
@@ -34,10 +34,10 @@ const SubHeader = styled(Header)`
 export default function WelcomeTitle () {
     return(
         <div>
-            <titleHolder>
+            
                 <Header>This is Family...</Header>
                 <SubHeader>This is Falendar</SubHeader>
-            </titleHolder>    
+                
         </div>    
     )
 

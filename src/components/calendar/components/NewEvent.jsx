@@ -21,7 +21,7 @@ const [open, setOpen] = React.useState(false);
 
     return(
         <Wrapper>
-             <NewEventIcon style= {{padding: "10px"}}onClick={handleClickOpen}>➕</NewEventIcon>
+             <NewEventIcon style= {{padding: "10px"}} onClick={handleClickOpen}>➕</NewEventIcon>
         <Dialog
         fullScreen
         open={open}
@@ -31,7 +31,7 @@ const [open, setOpen] = React.useState(false);
 
           <EventForm closeDialog={handleClose} refreshEvents={refreshEvents} currentUser={currentUser}/>
 
-          <EventForm closeDialog={handleClose} refreshEvents={refreshEvents} currentUser={currentUser} />
+          
 
           </Dialog>
         </Wrapper>

@@ -48,7 +48,7 @@ export default function Navbar(props) {
     return(
         <div className="navContainer">
             <Nav> 
-                <Link to="/Profile">
+                <Link to="/">
                 <AiOutlineHome className="home" fontSize="large"/>
                 </Link>
             

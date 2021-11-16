@@ -4,11 +4,11 @@ import axios from 'axios'
 import Login from './Login'
 //import Cal from './calendar/Cal'
 //import CalendarView from './calendar/CalendarView'
-import Weather from './Weather'
+//import Weather from './Weather'
 import styled from 'styled-components'
 //import { RightArrow } from '@styled-icons/boxicons-regular/RightArrow'
 import { Calendar } from '@styled-icons/boxicons-regular/Calendar'
-import Itinerary from './calendar/Itinerary'
+//import Itinerary from './calendar/Itinerary'
 
 const Events = styled.div`
 width: 190px;
@@ -73,7 +73,7 @@ export default function Profile(props) {
     return(
         <div>
             <div className='wwContainer'>
-                <Weather />
+                {/* <Weather /> */}
                 <div className="welcomeContainer">
 
                     <div className="welcome">
@@ -82,27 +82,14 @@ export default function Profile(props) {
 
 
 
-                        {/* <Link to="/calendar">Calendar</Link> 
-                        <h5>your email is {props.currentUser.email}</h5> */}
+                        <Link to="/calendar">Calendar</Link> 
+                        <h5>your email is {props.currentUser.email}</h5>
                             <div>
                                 <Events>
                                         <h2>Today's Schedule:</h2>
                                         <br></br>
                                         <Arrows>
-                                            <Itinerary />
-                                        {/* <h3><RightArrow size="10"/><span>1:00pm</span> - Wallow in self pity</h3>
-                                        <br></br> 
-                                        <h3><RightArrow size="10"/><span>4:30pm</span> - Stare into the abyss</h3>
-                                        <br></br>
-                                        <h3><RightArrow size="10"/><span>5:00pm</span> - Solve world hunger, tell no one</h3>
-                                        <br></br>
-                                        <h3><RightArrow size="10"/><span>5:30pm</span> - Jazzercise</h3>
-                                        <br></br>
-                                        <h3><RightArrow size="10"/><span>6:30pm</span> - Dinner with me</h3>
-                                        <br></br>
-                                        <h3><RightArrow size="10"/><span>7:00pm</span> - Wrestle with my self loathing</h3>
-                                        <br></br>
-                                        <br></br> */}
+                                            {/* <Itinerary /> */}
                                         <SeeCalendar>
                                         <Link to="/calendar"><Calendar color="#3f51b5"/></Link>
                                         </SeeCalendar>

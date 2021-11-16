@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { format } from "date-fns";
 //import NewEvent from '../components/NewEvent'
 
-export default function WeekView() {
+const WeekView = () => {
     let history = useHistory();
     const [status, setStatus] = useState("idle");
     const [today, setToday] = useState(new Date());
@@ -25,6 +25,12 @@ export default function WeekView() {
     const [weekRange, setWeekRange] = useState(weekArray);
     //AXIOS CALL(maybe?) just FETCH EVENTS OF THIS WEEK 
     //👹
+    useEffect(() => {
+      if (weekRange.length > 0){
+        setStatus("idle")
+        
+      }
+    })
 
 
     //take data and format days of the week

@@ -5,9 +5,9 @@ import jwt from 'jsonwebtoken'
 import { Redirect } from 'react-router-dom'
 import Profile from './Profile'
 import Title from './Title'
-import Button from '@material-ui/core/Button';
+//import Button from '@material-ui/core/Button';
 // import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
+//import TextField from '@material-ui/core/TextField';
 //import FormControlLabel from '@material-ui/core/FormControlLabel';
 //import Checkbox from '@material-ui/core/Checkbox';
 //import Link from '@material-ui/core/Link';
@@ -46,11 +46,11 @@ export default function Login(props) {
                 //set the user in app.js's state
                 props.setCurrentUser(decoded)
 
-            }catch(error) {
-              if(error.response.status === 400){
-                setMessage(error.response.data.msg)
+            }catch (err) {
+              if(err.response.status === 400){
+                setMessage(err.response.data.msg)
               } else {
-                  console.log(error)
+                  console.dir(err)
               }
             }
         }
@@ -59,65 +59,28 @@ export default function Login(props) {
     return(
         <div>
         <Container component="main" maxWidth="xs">
-        {/* <CssBaseline /> */}
-        <div className={classes.paper}>
+        <div>
             <Title />
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form className={classes.form} onSubmit={handleSubmit} >
+          <form onSubmit={handleSubmit} >
             <Grid container spacing={2}>
-              {/* <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="fname"
-                  name="firstName"
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="First Name"
-                  autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="lname"
-                />
-              </Grid> */}
               <Grid item xs={12}>
-                <TextField 
+                <input
                     id='email-input' 
                     type='email' 
                     placeholder="user@domain.com"
                     onChange={e => setEmail(e.target.value)}
                     value={email}
-                    // variant="outlined"
-                    // required
-                    // fullWidth
-                    // label="Email Address"
-                    // name="email"
-                    // autoComplete="email"
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField id="password-input"
+                <input id="password-input"
                   type="password"
                   placeholder='password'
                   onChange={e => setPassword(e.target.value)}
                   value={password}
-                  // variant="outlined"
-                  // required
-                  // fullWidth
-                  // name="password"
-                  // label="Password"
-                  // type="password"
-                  // autoComplete="current-password"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -127,16 +90,15 @@ export default function Login(props) {
                 /> */}
               </Grid>
             </Grid>
-            <Button
+            <input
               type="submit"
               value='login'
               //fullWidth
               //variant="contained"
               //color="primary"
               //className={classes.submit}
-            >
+            />
               Sign In
-            </Button>
             {/* <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/Register" variant="body2">

@@ -18,7 +18,7 @@ export default function Itinerary({monthEvents}) {
 
         getDailyEvents()
         console.log("🍍", eventData)
-    }, [])
+    }, [eventData])
 
     const eventList = monthEvents.map((activity, key) => {
         return (

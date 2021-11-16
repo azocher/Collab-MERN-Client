@@ -4,7 +4,7 @@ import axios from 'axios'
 import Cal from './Cal'
 import NewEvent from "./components/NewEvent"
 
-import Itinerary from "./Itinerary";
+//import Itinerary from "./Itinerary";
 import { useHistory, Link } from "react-router-dom";
 
 import { format } from "date-fns";
@@ -16,29 +16,29 @@ export default function CalendarView(props) {
     const [status, setStatus] = useState("loading");
     const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
     const [monthEvents, setMonthEvents] = useState([]);
-
+              
     const updateCurrentMonth = (month) => setCurrentMonth(month);
 
-    useEffect(async () => {
+    useEffect(() => {
       setStatus("loading");
       const getEvents = async () => {
         //AXIOS .GET ROUTE
         try {
           const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api-v1/calendar/allevents`)
-          console.log("👹 👹", response.data.allEvents)
-          setMonthEvents(response.data.allEvents)
-        } catch(error) { console.log("ERROR YA LIL SHIT 💩", error)}
+          console.log("👹 👹", response.data)
+          setMonthEvents(response.data) //.allEvents
+        } catch(error) { console.log("ERROR 💩", error)}
       }
       getEvents()
     }, [currentMonth]);
-    console.log("🍗", monthEvents)
+    //console.log("🍗", monthEvents)
     
       const getEventsAfterCreate = async () => {
         setStatus("loading");
         try {
           const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api-v1/calendar/allevents`)
-          console.log(response.data)
-          //setMonthEvents(response.data)
+          console.log("🏆", response.data)
+          setMonthEvents(response.data)
           setStatus("idle")
         } catch (error) {
           console.log("ERROR IN THE CALENDAR VIEW", error)
@@ -71,7 +71,7 @@ export default function CalendarView(props) {
           </Tabs>
         </TabsWrapper>
       <Cal updateCurrentMonth={updateCurrentMonth} />
-      <Itinerary monthEvents={monthEvents}/>
+      {/* <Itinerary monthEvents={monthEvents}/> */}
 
       {status === "loading" ? null : (
         <>
@@ -198,9 +198,3 @@ const EventTitle = styled.div`
   font-size: 1.4rem;
 `;
 
-{/* <NavIcon>
-          <AiOutlineHome onClick={() => history.push("/")} size={30} />
-        </NavIcon>
-        <NavIcon>
-          <BiArrowBack onClick={() => history.goBack()} size={30} />
-        </NavIcon> */}
