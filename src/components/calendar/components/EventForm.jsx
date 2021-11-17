@@ -62,7 +62,7 @@ export default function EventForm({currentUser, closeDialog, refreshEvents }) {
         try {
           event.preventDefault();
           setStatus("loading");
-          //console.log(JSON.stringify(form, null, 2))
+          console.log(JSON.stringify(form, null, 2))
           const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api-v1/calendar/createevent`, form)
           console.log("💰", response)
           refreshEvents()
@@ -109,7 +109,6 @@ export default function EventForm({currentUser, closeDialog, refreshEvents }) {
   const submitStartDate = (event) => {
     event.preventDefault();
     document.getElementById("CalendarFormStart").style.visibility = "hidden";
-
     let formatted = format(CalendarStartDate, "EEE. MMM. d, y");
     setDisplayStartDate(formatted);
     if (form.end.date < CalendarStartDate) {
@@ -213,12 +212,8 @@ export default function EventForm({currentUser, closeDialog, refreshEvents }) {
           </ButtonClose>
           <ButtonCreate
             onClick={(ev) => CreateEvent(ev)}
-            
-            //disabled={buttonDisabled}
-            
             // disabled={buttonDisabled}
-
-          >
+            >
             {/* ^^ console.log== CreateEvent(ev) */}
             {status === "idle" ? (
               "Create event"

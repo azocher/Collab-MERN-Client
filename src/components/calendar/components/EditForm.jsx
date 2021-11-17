@@ -5,6 +5,7 @@ import { format } from 'date-fns'
 import NewEventCalendar from './NewEventCalendar'
 import EditTime from './EditTime'
 import axios from 'axios';
+import DeleteEvent from './DeleteEvent'
 
 export default function EditForm({closeDialog, refreshEvents, currentEvent}) {
     const [form, setForm] = useState(currentEvent);
@@ -123,6 +124,7 @@ const submitEndDate = (event) => {
         <div>
          <form> 
         <Top>
+          <DeleteEvent eventId={currentEvent._id} refreshEvents={refreshEvents} />
           <Title
             type="text"
             placeholder="Your event title"
@@ -214,7 +216,7 @@ const submitEndDate = (event) => {
       ) : null}
           </form>
           <NewEventCalendar />
-          <EditTime />
+          <EditTime form={form} setForm={setForm}/>
         </div>
     )
 }

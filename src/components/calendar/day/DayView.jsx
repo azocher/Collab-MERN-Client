@@ -2,43 +2,65 @@ import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router";
 import styled from "styled-components";
 import NewEvent from "../components/NewEvent"
-//import DateSection from "./DateSection";
+import DateSection from "./DateSection";
 import NoEventToday from "./NoEventToday";
 import SingleEvent from "./SingleEvent"
 
 export default function DayView() {
     const [dayEvents, setDayEvents] = useState([]);
     const [status, setStatus] = useState("loading");
-    const history = useHistory();
-    const params = useParams();
-    // const today = new Date(
-    //   params.date.slice(0, 4),
-    //   params.date.slice(5, 7) - 1,
-    //   params.date.slice(8, 10)
-    // );
+    const [eventData, setEventData] = useState([])
+    //const history = useHistory();
+    //const params = useParams();
+    const [today, setToday] = useState(new Date().getDate);
+    // useEffect(() => {
+    //     setStatus("loading");
+    //     //AXIOS GET ROUTE 
+    //     fetch(`/events/date/${params.date}`)
+    //       .then((res) => res.json())
+    //       .then((res) => {
+    //         setDayEvents(res.data);
+    //         setStatus("idle");
+    //       })
+    //       .catch((error) => console.log("error!", error));
+    //   }, [params]);
     useEffect(() => {
-        setStatus("loading");
-        //AXIOS GET ROUTE 
-        fetch(`/events/date/${params.date}`)
-          .then((res) => res.json())
-          .then((res) => {
-            setDayEvents(res.data);
-            setStatus("idle");
-          })
-          .catch((error) => console.log("error!", error));
-      }, [params]);
+      const getDailyEvents = async () => {
+          try{
+              const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api-v1/calendar/event`)
+              setEventData(response.data)
+          }catch(error) {
+              console.log(error)
+          }
+      }
+      
+      getDailyEvents()
+      console.log(eventData, "🔮")
+  }, [today])
     
       const getDayEventsAfterDeleteAdd = async () => {
         setStatus("loading");
-        await fetch(`/events/date/${params.date}`)
-        //AXIOS GET ROUTE
-          .then((res) => res.json())
-          .then((res) => {
-            setDayEvents(res.data);
-            setStatus("idle");
-          })
-          .catch((error) => console.log("error!", error));
+        try{
+          const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api-v1/calendar/event`)
+          setEventData(response.data)
+      }catch(error) {
+          console.log(error)
+      }
       };
+      
+
+      
+
+    const eventList = eventData.map((activity, key) => {
+
+      return (
+          <li>
+              {activity.start.time.hours}:{activity.start.time.minutes } { activity.title}
+              <br></br>
+              <br></br>
+          </li>
+      )
+  })
     return(
         <Wrapper>
           <NewEvent refreshEvents={getDayEventsAfterDeleteAdd} />
@@ -50,20 +72,20 @@ export default function DayView() {
           <BiArrowBack onClick={() => history.goBack()} size={30} />
         </NavIcon> */}
         <TabItem
-          onClick={() => history.push("/calendar-month")}
+          onClick={() => console.log("back to monthly views")}//history.push("/calendar-month")}
           style={{ backgroundColor: "white" }}
         >
-          month
+          Month
         </TabItem>
         <TabItem
           style={{ backgroundColor: "white" }}
-          onClick={() => history.push(`/week/${params.date}`)}
+          onClick={() => console.log("weekly view")}//history.push(`/week/${params.date}`)}
         >
-          week
+          Week
         </TabItem>
         <TabItem>Day</TabItem>
       </Tabs>
-      {/* <DateSection today={today} /> */}
+      <DateSection today={today} /> 
       {status === "loading" ? null : (
         <ContentSection>
           {dayEvents.length === 0 ? (
@@ -76,6 +98,7 @@ export default function DayView() {
               />
             </>
           )}
+          {eventList}
         </ContentSection>
       )}
         </Wrapper>

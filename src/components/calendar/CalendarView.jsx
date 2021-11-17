@@ -3,7 +3,6 @@ import styled, { keyframes } from "styled-components";
 import axios from 'axios'
 import Cal from './Cal'
 import NewEvent from "./components/NewEvent"
-
 //import Itinerary from "./Itinerary";
 import { useHistory, Link } from "react-router-dom";
 
@@ -25,23 +24,23 @@ export default function CalendarView(props) {
         //AXIOS .GET ROUTE
         try {
           const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api-v1/calendar/allevents`)
-          console.log("👹 👹", response.data)
-          setMonthEvents(response.data) //.allEvents
-        } catch(error) { console.log("ERROR 💩", error)}
+          console.log("👹 👹", response.data.allEvents)
+          setMonthEvents(response.data.allEvents) 
+        } catch(error) { console.log("ERROR 💩", error.response)}
       }
       getEvents()
     }, [currentMonth]);
-    //console.log("🍗", monthEvents)
+    console.log("🍗", monthEvents)
     
       const getEventsAfterCreate = async () => {
         setStatus("loading");
         try {
           const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api-v1/calendar/allevents`)
           console.log("🏆", response.data)
-          setMonthEvents(response.data)
+          //setMonthEvents(response.data)
           setStatus("idle")
         } catch (error) {
-          console.log("ERROR IN THE CALENDAR VIEW", error)
+          console.log("ERROR IN THE CALENDAR VIEW", error.response.data)
         }
         //AXIOS .GET ROUTE
         // 💅
@@ -55,23 +54,21 @@ export default function CalendarView(props) {
               Monthly
             </TabItem>
             <TabItem
-              onClick={() => history.push(`/week/${format(new Date(), "y-MM-dd")}`)}
-              style={{ backgroundColor: "white" }}
-            >
-              Weekly
+              style={{ backgroundColor: "white" }}>
+              <Link to="/calendar/weekview">Weekly</Link>
             </TabItem>
             <TabItem
               style={{ backgroundColor: "white" }}
-              onClick={() => history.push(`/date/${format(new Date(), "d")}`)}
+              //onClick={() => history.push(`/date/${format(new Date(), "d")}`)}
             >
-              <Link to="/calendar/daily">
+              <Link to="/calendar/dayview">
               Daily
               </Link>
             </TabItem>
           </Tabs>
         </TabsWrapper>
       <Cal updateCurrentMonth={updateCurrentMonth} />
-      {/* <Itinerary monthEvents={monthEvents}/> */}
+      
 
       {status === "loading" ? null : (
         <>
@@ -103,7 +100,6 @@ export default function CalendarView(props) {
           </EventsSection>
         </>
       )}
-      
       </Wrapper>
     )
 }  

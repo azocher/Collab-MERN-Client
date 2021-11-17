@@ -37,9 +37,9 @@ export default function Navbar(props) {
             </Link>
        
             
-            {/* <Link to="/register">
+            <Link to="/register">
                 New Account
-            </Link> */}
+            </Link>
 
         </>
        
